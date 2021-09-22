@@ -402,8 +402,8 @@ class HostCallController: VideoCallController {
         }
         refreshStreamLock()
        
-        let hashedUserId = slot.user?.hashedId ?? ""
-        updateUserOfHangup(hashedUserId : hashedUserId, hangup : isHangedUp)
+        let hashedUserId = slot.user?.id ?? ""
+        updateUserOfHangup(userId : hashedUserId, hangup : isHangedUp)
     }
     
     private func refreshStreamLock(){
@@ -416,13 +416,18 @@ class HostCallController: VideoCallController {
         localMediaPackage?.isDisabled = SlotFlagInfo.isCallHangedUp
     }
     
-    private func updateUserOfHangup(hashedUserId : String, hangup : Bool){
+    private func updateUserOfHangup(userId : String, hangup : Bool){
         
-        var param = [String : Any]()
-        param["id"] = "hangUp"
-        param["value"] = hangup
-        param["name"] = hashedUserId
-        socketClient?.emit(param)
+//        var param = [String : Any]()
+//        param["id"] = "hangUp"
+//        param["value"] = hangup
+//        param["name"] = hashedUserId
+//
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:hangup:" + userId, message: "", completion: { result in
+            print(result)
+        })
+        
+        //socketClient?.emit(param)
     }
     
     var hostRootView : HostVideoRootView?{
@@ -463,7 +468,62 @@ class HostCallController: VideoCallController {
     }
     
     
+    
+    func registerForAutomatedSelfieUser() {
+        //ch:screenshotCountDown:14053
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:14053"])
+                // Create a new listener instance
+                let listener = SubscriptionListener()
+
+                // Add listener event callbacks
+                listener.didReceiveSubscription = { event in
+                    
+                    
+                  switch event {
+                  case let .messageReceived(message):
+                    print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+                    
+                  case let .connectionStatusChanged(status):
+                    print("Status Received: \(status)")
+                  case let .presenceChanged(presence):
+                    print("Presence Received: \(presence)")
+                  case let .subscribeError(error):
+                    print("Subscription Error \(error)")
+                  default:
+                    break
+                  }
+                }
+    }
+    
+    func registerForAutomatedSelfieHost() {
+        //ch:screenshotCountDown:14053
+        print("hhhh")
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:14054"])
+                // Create a new listener instance
+                let listener = SubscriptionListener()
+
+                // Add listener event callbacks
+                listener.didReceiveSubscription = { event in
+                  switch event {
+                  
+                  case let .messageReceived(message):
+                    print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+                    
+                  case let .connectionStatusChanged(status):
+                    print("Status Received: \(status)")
+                  case let .presenceChanged(presence):
+                    print("Presence Received: \(presence)")
+                  case let .subscribeError(error):
+                    print("Subscription Error \(error)")
+                  default:
+                    break
+                  }
+                }
+    }
+    
     private func registerForTimerNotification(){
+        registerForAutomatedSelfieUser()
+        registerForAutomatedSelfieHost()
         
         // @abhishek: If host activated photobooth,this should get return
     
@@ -584,33 +644,53 @@ class HostCallController: VideoCallController {
             
             Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
             //End
-            var data:[String:Any] = [String:Any]()
-            var messageData:[String:Any] = [String:Any]()
+            //var data:[String:Any] = [String:Any]()
+            var messageData:[String:String] = [String:String]()
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
-            data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
-            socketClient?.emit(data)
+            //data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+            //socketClient?.emit(data)
+            
+            let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
+            UserSocket.sharedInstance?.pubnub.publish(channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+              switch result {
+              case let .success(response):
+                print("Successful Publish Response: \(response)")
+              case let .failure(error):
+                print("Failed Publish Response: \(error.localizedDescription)")
+              }
+            }
             callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
-            Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
         
         }
     }
     
     private func registerForCapturedScreenshot(){
-        // send captured selfie configation
-        var data:[String:Any] = [String:Any]()
-        var messageData:[String:Any] = [String:Any]()
+        let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
+        var messageData:[String:Bool] = [String:Bool]()
         messageData = ["capturedSelfie":true]
-        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
-        socketClient?.emit(data)
+        UserSocket.sharedInstance?.pubnub.publish( channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+          switch result {
+          case let .success(response):
+            print("Successful Publish Response: \(response)")
+          case let .failure(error):
+            print("Failed Publish Response: \(error.localizedDescription)")
+          }
+        }
     }
     
     private func registerForCaptureScreenshot(){
-        var data:[String:Any] = [String:Any]()
-        var messageData:[String:Any] = [String:Any]()
+        var messageData:[String:Bool] = [String:Bool]()
         messageData = ["captureSelfie":true]
-        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
-        socketClient?.emit(data)
+        let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.publish( channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+          switch result {
+          case let .success(response):
+            print("Successful Publish Response: \(response)")
+          case let .failure(error):
+            print("Failed Publish Response: \(error.localizedDescription)")
+          }
+        }
     }
     
 
