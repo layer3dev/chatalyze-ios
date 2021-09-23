@@ -14,6 +14,7 @@ import ChatSDK
 import MessagingSDK
 import SendBirdSDK
 import SendBirdUIKit
+import PubNub
 
 class UserCallController: VideoCallController {
     
@@ -980,7 +981,8 @@ class UserCallController: VideoCallController {
         }
         
         if(!TimerSync.sharedInstance.isSynced){
-            return
+            // needs to be uncommented after timer is synced
+            //return
         }
         
         if eventInfo?.isHostManualScreenshot ?? false{
@@ -1091,13 +1093,23 @@ class UserCallController: VideoCallController {
             Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
             //End
             var data:[String:Any] = [String:Any]()
-            var messageData:[String:Any] = [String:Any]()
+            var messageData:[String:String] = [String:String]()
             messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-            socketClient?.emit(data)
+            //socketClient?.emit(data)
             callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: requiredWebCompatibleTimeStamp)
             Log.echo(key: "yud", text: "Sent time stamp data is \(data)")
+            
+            
+            UserSocket.sharedInstance?.pubnub.publish(channel: "ch:screenshotCountDown:\(hostId ?? "")", message: messageData) { result in
+              switch result {
+              case let .success(response):
+                print("Successful Publish Response: \(response)")
+              case let .failure(error):
+                print("Failed Publish Response: \(error.localizedDescription)")
+              }
+            }
             
             //selfie timer will be initiated after giving command to selfie view for the animation.
             //isSelfieTimerInitiated = true
@@ -1210,45 +1222,115 @@ class UserCallController: VideoCallController {
         }
     }
     
+    //<##>
+    
     func registerForHostManualTriggeredTimeStamp(){
         
-        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
+//        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
+//
+//        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
+//
+//            print(" I got the reponse \(String(describing: response))")
+//
+//            if let responseDict:[String:JSON] = response?.dictionary{
+//                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
+//
+//                    if let _ = dateDict["timerStartsAt"]?.boolValue{
+//                        self.changeOrientationToPortrait()
+//                        self.lockDeviceOrientationInPortrait()
+//                        self.selfieWindiwView?.show(with: localMediaPackage, remoteStream: nil)
+//                        guard let remoteView = selfieWindiwView?.remoteStreamVideo else {
+//                            return
+//                        }
+//                        self.connection?.addRenderer(remoteView: remoteView)
+//                    }
+//                }
+//            }
+//        })
+//
+        //========================
         
-        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
-            
-            print(" I got the reponse \(String(describing: response))")
-            
-            if let responseDict:[String:JSON] = response?.dictionary{
-                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
-                    
-                    if let _ = dateDict["timerStartsAt"]?.boolValue{
-                        self.changeOrientationToPortrait()
-                        self.lockDeviceOrientationInPortrait()
-                        self.selfieWindiwView?.show(with: localMediaPackage, remoteStream: nil)
-                        guard let remoteView = selfieWindiwView?.remoteStreamVideo else {
-                            return
-                        }
-                        self.connection?.addRenderer(remoteView: remoteView)
-                    }
-                }
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let info = message.payload.rawValue as? [String : Any]
+            else{
+                return
             }
-        })
+                
+            if (info["timerStartsAt"] as? String ?? "") != "" {
+                self.changeOrientationToPortrait()
+                self.lockDeviceOrientationInPortrait()
+                self.selfieWindiwView?.show(with: self.localMediaPackage, remoteStream: nil)
+                guard let remoteView = self.selfieWindiwView?.remoteStreamVideo else {
+                    return
+                }
+                self.connection?.addRenderer(remoteView: remoteView)
+            }
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+        }
+        
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
     func registerOnScreenShotGotSaved(){
         
-        UserSocket.sharedInstance?.socket?.on("chatalyze_selfie_saved", callback: {[weak self] (data, emitter) in
-            self?.saveImage()
-            self?.selfieWindiwView?.hide()
-        })
+//        UserSocket.sharedInstance?.socket?.on("chatalyze_selfie_saved", callback: {[weak self] (data, emitter) in
+//            self?.saveImage()
+//            self?.selfieWindiwView?.hide()
+//        })
+        
+        //<##>  have to work on
+        
+        let userId = self.eventInfo?.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["chatalyze_selfie_saved8"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+                self.saveImage()
+                self.selfieWindiwView?.hide()
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
+        
     }
     
+    //<##>
     func registerForMimicFlashForManualSelfie(){
+        
         socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
-            
+
             if let responseDict:[String:JSON] = response?.dictionary{
                 if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
-                    
+
                     if let isSelfieToCapture = dateDict["captureSelfie"]?.boolValue{
                         if isSelfieToCapture{
                             if let eventInfo = self.eventInfo{
@@ -1259,6 +1341,7 @@ class UserCallController: VideoCallController {
                 }
             }
         })
+        
     }
 
     
