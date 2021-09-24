@@ -1295,10 +1295,10 @@ class UserCallController: VideoCallController {
 //            self?.selfieWindiwView?.hide()
 //        })
         
-        //<##>  have to work on
+        //<##>  have to test
         
         let userId = self.eventInfo?.user?.id ?? ""
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["chatalyze_selfie_saved8"])
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["chatalyze_selfie_saved\(userId)"])
         let listener = SubscriptionListener()
 
         // Add listener event callbacks
@@ -2062,6 +2062,46 @@ extension UserCallController{
 extension UserCallController {
     
     func registerForAutographListener(){
+        
+        //<##> have to work on
+        
+        let userId = self.eventInfo?.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:startedSigning:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            print("Message Received224342: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let info = message.payload.rawValue as? JSON
+            else{
+                return
+            }
+           
+                let rawInfo = info["message"]
+                print("nnnn \(info)")
+                self.canvasInfo = CanvasInfo(info : rawInfo)
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+
+        }
+        
+        UserSocket.sharedInstance?.pubnub.add(listener)
+        
+        
+        
+        
+        
+        
         
         socketListener?.onEvent("startedSigning", completion: { (json) in
             

@@ -86,7 +86,7 @@ import TwilioVideo
     
     internal func disableMedia(){
         mediaTrack?.muteAudio()
-        mediaTrack?.muteVideo()
+        //mediaTrack?.muteVideo()
     }
 }
 

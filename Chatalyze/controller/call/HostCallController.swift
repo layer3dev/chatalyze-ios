@@ -468,114 +468,77 @@ class HostCallController: VideoCallController {
     }
     
     
-    
-    func registerForAutomatedSelfieUser() {
-        //ch:screenshotCountDown:14053
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:14053"])
-                // Create a new listener instance
-                let listener = SubscriptionListener()
-
-                // Add listener event callbacks
-                listener.didReceiveSubscription = { event in
-                    
-                    
-                  switch event {
-                  case let .messageReceived(message):
-                    print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
-                    
-                  case let .connectionStatusChanged(status):
-                    print("Status Received: \(status)")
-                  case let .presenceChanged(presence):
-                    print("Presence Received: \(presence)")
-                  case let .subscribeError(error):
-                    print("Subscription Error \(error)")
-                  default:
-                    break
-                  }
-                }
-    }
-    
-    func registerForAutomatedSelfieHost() {
-        //ch:screenshotCountDown:14053
-        print("hhhh")
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:14054"])
-                // Create a new listener instance
-                let listener = SubscriptionListener()
-
-                // Add listener event callbacks
-                listener.didReceiveSubscription = { event in
-                  switch event {
-                  
-                  case let .messageReceived(message):
-                    print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
-                    
-                  case let .connectionStatusChanged(status):
-                    print("Status Received: \(status)")
-                  case let .presenceChanged(presence):
-                    print("Presence Received: \(presence)")
-                  case let .subscribeError(error):
-                    print("Subscription Error \(error)")
-                  default:
-                    break
-                  }
-                }
+    func arrangeForTimerNotification(date: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        var requiredDate:Date?
+        
+        if let newdate = dateFormatter.date(from: date){
+            
+            requiredDate = newdate
+        }else{
+            
+            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
+            requiredDate = dateFormatter.date(from: date)
+        }
+        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
+        print("required date is \(date) and the sending ")
+        self.selfieTimerView?.reset()
+        
+        if let eventInfo = self.eventInfo{
+            self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
+        }
+        
+        self.selfieTimerView?.screenShotListner = {[weak self] in
+            
+            print(" I got the mimic screenshot")
+            if let weakSelf = self {
+                weakSelf.photoBothView?.enableBtn()
+                weakSelf.mimicScreenShotFlash()
+                weakSelf.photoBothView?.isUserInteractionEnabled = true
+                weakSelf.selfieTimerView?.reset()
+                weakSelf.processAutographSelfie()
+            }
+        }
     }
     
     private func registerForTimerNotification(){
-        registerForAutomatedSelfieUser()
-        registerForAutomatedSelfieHost()
         
         // @abhishek: If host activated photobooth,this should get return
-    
-      
-        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
         
-        socketListener?.onEvent("screenshotCountDown", completion: { (response) in
-            
-            print(" I got the reponse \(String(describing: response))")
-            
-            if let responseDict:[String:JSON] = response?.dictionary{
-                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
-                    
-                    if let date = dateDict["timerStartsAt"]?.stringValue{
-                        
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
-                        
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                        var requiredDate:Date?
-                        
-                        if let newdate = dateFormatter.date(from: date){
-                            
-                            requiredDate = newdate
-                        }else{
-                            
-                            dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
-                            requiredDate = dateFormatter.date(from: date)
-                        }
-                        self.callLogger?.logSelfieTimerAcknowledgment(timerStartsAt: date)
-                        print("required date is \(date) and the sending ")
-                        self.selfieTimerView?.reset()
-                        
-                        if let eventInfo = self.eventInfo{
-                            self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
-                        }
-                        
-                        self.selfieTimerView?.screenShotListner = {[weak self] in
-                            
-                            print(" I got the mimic screenshot")
-                            if let weakSelf = self {
-                                weakSelf.photoBothView?.enableBtn()
-                                weakSelf.mimicScreenShotFlash()
-                                weakSelf.photoBothView?.isUserInteractionEnabled = true
-                                weakSelf.selfieTimerView?.reset()
-                                weakSelf.processAutographSelfie()
-                            }
-                        }
-                    }
-                }
+        
+        
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            guard let info = message.payload.rawValue as? [String : Any]
+            else{
+                return
             }
-        })
+                
+            let dateString  = info["timerStartsAt"] as? String ?? ""
+            self.arrangeForTimerNotification(date: dateString)
+                
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
     @IBAction func photoboothSelfieAction(){
@@ -2260,21 +2223,21 @@ extension HostCallController{
         sendScreenshotConfirmation()
     }
      
-    private func generateAutographInfo() -> [String : Any?]{
+    private func generateAutographInfo() -> [String : String]{
         
-        var params = [String : Any?]()
+        var params = [String : String]()
         guard let currentSlot = autographSlotInfo
             else{
                 return params
         }
-        params["userId"] = currentSlot.userId
-        params["analystId"] = eventInfo?.userId
+        params["userId"] = "\(currentSlot.userId ?? 0)"
+        params["analystId"] = "\(eventInfo?.userId ?? 0)"
         params["screenshot"] = ""
-        params["signed"] = false
-        params["id"] = 0
+        params["signed"] = "false"
+        params["id"] = "0"
         params["color"] = ""
         params["text"] = ""
-        params["paid"] = false
+        params["paid"] = "false"
         return params
     }
     
@@ -2287,21 +2250,18 @@ extension HostCallController{
         }
         
         self.view.layoutIfNeeded()
-        var params = [String : Any]()
-        let size = self.hostRootView?.canvas?.frame.size ?? CGSize()
-        params["width"] = size.width
-        params["height"] = size.height
-        params["screenshot"] =  generateAutographInfo()
         
-        if let currentSlotId = autographSlotInfo?.id {
-            params["forSlotId"] = "\(currentSlotId)"
+        let message = generateAutographInfo()
+        let userId = currentSlot.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:startedSigning:\(userId)", message: message) { result in
+            switch result {
+            case let .success(response):
+            print("Successful Publish Response: \(response)")
+            case let .failure(error):
+            print("Failed Publish Response: \(error.localizedDescription)")
+            }
         }
-
-        var mainParams  = [String : Any]()
-        mainParams["id"] = "startedSigning"
-        mainParams["name"] = currentSlot.user?.hashedId
-        mainParams["message"] = params
-        socketClient?.emit(mainParams)
+        
         //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
         removeBlurImageViewInfailure()
         

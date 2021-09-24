@@ -3,7 +3,7 @@
 
 import UIKit
 import AVFoundation
-
+import PubNub
 class AutographyHostCanvas: ExtendedView {
     
     @IBOutlet var signatureAccessoryDoneButton:UIButton?
@@ -110,7 +110,22 @@ extension AutographyHostCanvas{
     }
 }
 
+struct BroadcastMembers: JSONCodable {
+    let x:CGFloat
+    let y:CGFloat
+    let isContinous: Bool
+    let counter:Int
+    let reset: Bool
+    let pressure: Int
+    let StrokeWidth: Double
+    let StrokeColor:String
+    let Erase:Bool
+    
+    
+}
+
 extension AutographyHostCanvas{
+    
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
         
@@ -137,11 +152,24 @@ extension AutographyHostCanvas{
         mainParams["id"] = "broadcastPoints"
         mainParams["message"] = params
         
-        self.counter = self.counter + 1
         
-        Log.echo(key: "yud", text: "Sending the broadcasting points \(mainParams)")
-        self.socketClient?.emit(mainParams)
+        
+        
+        let message = BroadcastMembers(x: x, y: y, isContinous: isContinous, counter: self.counter, reset: reset, pressure: 1, StrokeWidth: 11.0, StrokeColor: self.strokeColor.hexString, Erase: false)
+        let userId = self.slotInfo?.user?.id ?? ""
+        self.counter = self.counter + 1
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:broadcastPoints:\(userId)", message: message) { result in
+            switch result {
+            case let .success(response):
+            print("Successful Publish Response: \(response)")
+            case let .failure(error):
+            print("Failed Publish Response: \(error.localizedDescription)")
+            }
+        }
+        
+        
     }
+    
 }
 
 extension AutographyHostCanvas{
