@@ -89,45 +89,70 @@ class TimerSync {
         self.countRequest = 0
         self.precision = 0;
         syncTime = Date()
-        executeSync()
+        //executeSync()
         
     }
     
     
     
     
-    private func executeSync(){
-        requestTime = Date()
-        requestIdentifierCounter = requestIdentifierCounter + 1
-        
-        var message = [String : Any]()
-        message["id"] = "getTimestamp"
-        message["requestIdentifier"] = requestIdentifierCounter
-        
-        socket?.emit(message)
-    
-    }
+//    private func executeSync(){
+//        requestTime = Date()
+//        requestIdentifierCounter = requestIdentifierCounter + 1
+//
+//        var message = [String : Any]()
+//        message["id"] = "getTimestamp"
+//        message["requestIdentifier"] = requestIdentifierCounter
+//
+//        socket?.emit(message)
+//
+//    }
     
     private func setServerListener(){
-        socketListener?.onEvent("timestamp", completion: {[weak self] (json) in
-            
-            Log.echo(key: "timestamp", text: "json -> \(String(describing: json?.rawString()))")
-            
-            guard let weakSelf = self
-                else{
+        
+        UserSocket.sharedInstance?.pubnub.time { result in
+            switch result {
+            case let .success(timetoken):
+                let requiredTimeStamp = timetoken / 10000
+                var timeJson: JSON? = JSON()
+                timeJson?["timestamp"] = JSON(requiredTimeStamp)
+                
+                let syncInfo = TimeSyncInfo(info: timeJson)
+                let isSynced = self.updateTimeDifference(info : syncInfo)
+                self.isSynced = true
+                if(self.countRequest > self.maxCountRequest || isSynced){
                     return
+                }
+                
+                self.countRequest = self.countRequest + 1
+              print("timestamp13345 pubnub \(requiredTimeStamp)")
+            case let .failure(error):
+              print("Handle response error: \(error.localizedDescription)")
             }
-            
-            let syncInfo = TimeSyncInfo(info: json)
-            let isSynced = weakSelf.updateTimeDifference(info : syncInfo)
-            self?.isSynced = true
-            if(weakSelf.countRequest > weakSelf.maxCountRequest || isSynced){
-                return
-            }
-            
-            weakSelf.countRequest = weakSelf.countRequest + 1
-            weakSelf.executeSync()
-        })
+          }
+
+        
+        
+        
+//        socketListener?.onEvent("timestamp", completion: {[weak self] (json) in
+//
+//            Log.echo(key: "timestamp", text: "json -> \(String(describing: json?.rawString()))")
+//
+//            guard let weakSelf = self
+//                else{
+//                    return
+//            }
+//
+//            let syncInfo = TimeSyncInfo(info: json)
+//            let isSynced = weakSelf.updateTimeDifference(info : syncInfo)
+//            self?.isSynced = true
+//            if(weakSelf.countRequest > weakSelf.maxCountRequest || isSynced){
+//                return
+//            }
+//
+//            weakSelf.countRequest = weakSelf.countRequest + 1
+//            weakSelf.executeSync()
+//        })
     }
     
     

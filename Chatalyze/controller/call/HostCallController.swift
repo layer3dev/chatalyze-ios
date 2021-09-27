@@ -2223,47 +2223,80 @@ extension HostCallController{
         sendScreenshotConfirmation()
     }
      
-    private func generateAutographInfo() -> [String : String]{
+    private func generateAutographInfo() -> [String : Any?]{
         
-        var params = [String : String]()
+        var params = [String : Any?]()
         guard let currentSlot = autographSlotInfo
             else{
                 return params
         }
+        
         params["userId"] = "\(currentSlot.userId ?? 0)"
         params["analystId"] = "\(eventInfo?.userId ?? 0)"
         params["screenshot"] = ""
-        params["signed"] = "false"
+        params["signed"] = false
         params["id"] = "0"
         params["color"] = ""
         params["text"] = ""
-        params["paid"] = "false"
+        params["paid"] = false
         return params
     }
     
     private func sendScreenshotConfirmation(){
-        
-        
         guard let currentSlot = autographSlotInfo
             else{
                 return
         }
         
         self.view.layoutIfNeeded()
+        var params = [String : Any]()
+        let size = self.hostRootView?.canvas?.frame.size ?? CGSize()
+        params["width"] = size.width
+        params["height"] = size.height
+        params["screenshot"] =  generateAutographInfo()
         
-        let message = generateAutographInfo()
+        if let currentSlotId = autographSlotInfo?.id {
+            params["forSlotId"] = "\(currentSlotId)"
+        }
+
+        var mainParams  = [String : Any]()
+        //mainParams["id"] = "startedSigning"
+        //mainParams["name"] = currentSlot.user?.hashedId
+        mainParams["message"] = params
+        let message = AnyJSON(mainParams)
         let userId = currentSlot.user?.id ?? ""
         UserSocket.sharedInstance?.pubnub.publish(channel: "ch:startedSigning:\(userId)", message: message) { result in
             switch result {
             case let .success(response):
-            print("Successful Publish Response: \(response)")
+                print("Successful Publish Response687: \(message)")
             case let .failure(error):
             print("Failed Publish Response: \(error.localizedDescription)")
             }
         }
-        
+        //socketClient?.emit(mainParams)
         //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
         removeBlurImageViewInfailure()
+        
+//        guard let currentSlot = autographSlotInfo
+//            else{
+//                return
+//        }
+//
+//        self.view.layoutIfNeeded()
+//
+//        let message = generateAutographInfo()
+//        let userId = currentSlot.user?.id ?? ""
+//        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:startedSigning:\(userId)", message: message) { result in
+//            switch result {
+//            case let .success(response):
+//            print("Successful Publish Response: \(response)")
+//            case let .failure(error):
+//            print("Failed Publish Response: \(error.localizedDescription)")
+//            }
+//        }
+//
+//        //@abhishek: This will enables host to sign autograpgh if screenshot failed to load on User side.
+//        removeBlurImageViewInfailure()
         
     }
     

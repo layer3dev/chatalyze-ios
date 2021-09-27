@@ -34,6 +34,7 @@ class AutographyHostCanvas: ExtendedView {
     }
     
     func registerScreenShotLoaded(){
+        //<##> have to work on
         
         socketListener?.onEvent("screenshotLoaded", completion: { (response) in
             
@@ -124,12 +125,17 @@ struct BroadcastMembers: JSONCodable {
     
 }
 
+struct Message: JSONCodable {
+    let message:BroadcastMembers
+    let id: String
+}
+
 extension AutographyHostCanvas{
     
     
     fileprivate func broadcastCoordinate(withX x : CGFloat, y : CGFloat, isContinous : Bool, reset : Bool = false){
         
-        
+        //<##> have to work on
         var params = [String : Any]()
         
         params["x"] = x
@@ -152,13 +158,15 @@ extension AutographyHostCanvas{
         mainParams["id"] = "broadcastPoints"
         mainParams["message"] = params
         
-        
-        
-        
-        let message = BroadcastMembers(x: x, y: y, isContinous: isContinous, counter: self.counter, reset: reset, pressure: 1, StrokeWidth: 11.0, StrokeColor: self.strokeColor.hexString, Erase: false)
         let userId = self.slotInfo?.user?.id ?? ""
+        let channel = "ch:broadcastPoints:\(userId)"
+        
+        
+        let member = BroadcastMembers(x: x, y: y, isContinous: isContinous, counter: self.counter, reset: reset, pressure: 1, StrokeWidth: 11.0, StrokeColor: self.strokeColor.hexString, Erase: false)
+        let msg = Message(message: member, id: channel)
+        
         self.counter = self.counter + 1
-        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:broadcastPoints:\(userId)", message: message) { result in
+        UserSocket.sharedInstance?.pubnub.publish(channel: channel , message: msg) { result in
             switch result {
             case let .success(response):
             print("Successful Publish Response: \(response)")

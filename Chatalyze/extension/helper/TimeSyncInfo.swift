@@ -29,13 +29,20 @@ class TimeSyncInfo{
         }
         timestamp = info["timestamp"]?.int64Value ?? 0
         identifier = info["requestIdentifier"]?.intValue ?? 0
+        print("heesuccess \(timestamp)")
     }
     
     func isValid()->Bool{
       
-        if(timestamp == 0 || identifier == 0){
+//        if(timestamp == 0 || identifier == 0){
+//            return false
+//        }
+        
+        if(timestamp == 0){
             return false
         }
         return true
+        
+        
     }
 }
