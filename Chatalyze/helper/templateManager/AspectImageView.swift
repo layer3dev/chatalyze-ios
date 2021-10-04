@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import PubNub
+import SwiftyJSON
 
 class AspectImageView: ExtendedView {
     
@@ -93,32 +95,87 @@ class AspectImageView: ExtendedView {
     
     private func registerForAutographListener(){
         
-        socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
-            
-            let rawInfo = json?["message"]
-            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
-            
-            let broadcastInfo = BroadcastInfo(info : rawInfo)
-            
-            self?.ppp = self?.pp ?? CGPoint.zero
-            self?.pp = self?.cp ?? CGPoint.zero
-            self?.cp = self?.targetPoint(inputPoint: broadcastInfo.point) ?? CGPoint.zero
-            
-            let newRect = self?.calculateRectBetween(lastPoint: self?.pp ?? CGPoint.zero, newPoint: self?.cp ?? CGPoint.zero)
-            
-            self?.sigCoordinates.append(broadcastInfo)
-            if(broadcastInfo.reset){
+//        socketListener?.onEvent("broadcastPoints", completion: { [weak self] (json) in
+//
+//            let rawInfo = json?["message"]
+//            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+//
+//            let broadcastInfo = BroadcastInfo(info : rawInfo)
+//
+//            self?.ppp = self?.pp ?? CGPoint.zero
+//            self?.pp = self?.cp ?? CGPoint.zero
+//            self?.cp = self?.targetPoint(inputPoint: broadcastInfo.point) ?? CGPoint.zero
+//
+//            let newRect = self?.calculateRectBetween(lastPoint: self?.pp ?? CGPoint.zero, newPoint: self?.cp ?? CGPoint.zero)
+//
+//            self?.sigCoordinates.append(broadcastInfo)
+//            if(broadcastInfo.reset){
+//
+//                Log.echo(key: "processPoint", text: "asking to reset")
+//                self?.sigCoordinates.removeAll()
+//                self?.reset()
+//                return
+//            }
+//
+//            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
+//
+//            self?.layer.setNeedsDisplay(newRect ?? self?.frame ?? CGRect.zero)
+//        })
+        
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:broadcastPoints:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+                guard let info = message.payload.rawValue as? [String: Any]
+                else{
+                    return
+                }
+               
+                guard let rawInfo = info["message"] else { return }
+                let broadcastInfo = BroadcastInfo(info : JSON(rawInfo))
                 
-                Log.echo(key: "processPoint", text: "asking to reset")
-                self?.sigCoordinates.removeAll()
-                self?.reset()
-                return
+                self.ppp = self.pp
+                self.pp = self.cp
+                self.cp = self.targetPoint(inputPoint: broadcastInfo.point)
+    
+                let newRect = self.calculateRectBetween(lastPoint: self.pp , newPoint: self.cp)
+    
+                self.sigCoordinates.append(broadcastInfo)
+                if(broadcastInfo.reset){
+    
+                    Log.echo(key: "processPoint", text: "asking to reset")
+                    self.sigCoordinates.removeAll()
+                    self.reset()
+                    return
+                }
+    
+                Log.echo(key: "yud", text: "I am getting the user points42344 \(String(describing: rawInfo))")
+    
+                self.layer.setNeedsDisplay(newRect)
+                
+                
+                
+                
+                
+                
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
             }
-            
-            Log.echo(key: "yud", text: "I am getting the user points \(String(describing: rawInfo))")
-            
-            self?.layer.setNeedsDisplay(newRect ?? self?.frame ?? CGRect.zero)
-        })
+
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
 }
 

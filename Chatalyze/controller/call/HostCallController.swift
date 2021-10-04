@@ -60,6 +60,7 @@ class HostCallController: VideoCallController {
     
     //For animation.
     var isAnimating = false
+    var isCallDisconnected:Bool = false
     
     @IBOutlet var selfieTimerView:SelfieTimerView?
     var connectionInfo : [String : HostCallConnection] =  [String : HostCallConnection]()
@@ -177,8 +178,99 @@ class HostCallController: VideoCallController {
        
         initializeVariable()
         layoutrecordingOption()
-         layoutCustomBackGrnd()
+        layoutCustomBackGrnd()
+        scheduleCallUpdateListener()
+        hangupListener()
     }
+    
+    
+    func publishHangUp() {
+        var param = [String : Bool]()
+        param["value"] = true
+        let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:hangup:" + userId, message: param) { result in
+            switch result {
+            case let .success(response):
+            print("Successful Publish hangup: \(response)")
+            case let .failure(error):
+            print("Failed Publish hangup: \(error.localizedDescription)")
+            }
+        }
+    }
+    // listening: if the monitor has skipped the current call
+    func hangupListener() {
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:hangup:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            
+            guard let info = message.payload.rawValue as? [String : Any]
+            else{
+                return
+            }
+                
+        let isCallSkippedByMonitor = info["value"] as? Bool ?? false
+        if isCallSkippedByMonitor {
+            self.publishHangUp()
+        }
+                
+        print("Message Receivedfffrt: \(info) Publisher: \(message.publisher ?? "defaultUUID")")
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
+    }
+    
+    // when the schedule call gets updated, like monitor suffles the slots or extend the time
+    func scheduleCallUpdateListener(){
+        let hostId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["scheduled_call_updated" + hostId])
+        // Create a new listener instance
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+//                guard let info = message.payload.rawValue as? [String : Any]
+//                    else{
+//                        return
+//                    }
+//                let data = info["id"] as? [String: Int] ?? [:]
+                
+            // reinitialise super
+            super.initialization()
+            
+            print("Message Received123: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+        }
+        // Start receiving subscription events
+        UserSocket.sharedInstance?.pubnub.add(listener)
+    }
+
+    
     
     override func processEventInfo(){
         super.processEventInfo()
@@ -418,12 +510,12 @@ class HostCallController: VideoCallController {
     
     private func updateUserOfHangup(userId : String, hangup : Bool){
         
-//        var param = [String : Any]()
-//        param["id"] = "hangUp"
-//        param["value"] = hangup
-//        param["name"] = hashedUserId
+        var param = [String : Bool]()
+        
+        param["value"] = hangup
+        //param["name"] = hashedUserId
 //
-        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:hangup:" + userId, message: "", completion: { result in
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:hangup:" + userId, message: param, completion: { result in
             print(result)
         })
         
@@ -487,7 +579,7 @@ class HostCallController: VideoCallController {
         print("required date is \(date) and the sending ")
         self.selfieTimerView?.reset()
         
-        if let eventInfo = self.eventInfo{
+        if let eventInfo = self.eventInfo {
             self.selfieTimerView?.startAnimationForHost(date: requiredDate, eventInfo: eventInfo)
         }
         
@@ -505,10 +597,11 @@ class HostCallController: VideoCallController {
     }
     
     private func registerForTimerNotification(){
-        
         // @abhishek: If host activated photobooth,this should get return
-        
-        
+        // manual means host activated
+        if self.eventInfo?.isScreenShotAllowed == "manual" {
+            return
+        }
         
         let userId = SignedUserInfo.sharedInstance?.id ?? ""
         UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:\(userId)"])
@@ -525,7 +618,11 @@ class HostCallController: VideoCallController {
             }
                 
             let dateString  = info["timerStartsAt"] as? String ?? ""
-            self.arrangeForTimerNotification(date: dateString)
+            if dateString != "" {
+                print("basically this will start 1 2 3 smile")
+                self.arrangeForTimerNotification(date: dateString)
+            }
+            
                 
             case let .connectionStatusChanged(status):
             print("Status Received: \(status)")
@@ -985,6 +1082,9 @@ class HostCallController: VideoCallController {
 //            photoBothView?.hidePhotoboothcanvas()
 //            return
 //        }
+        if isCallDisconnected {
+            return
+        }
         
         
         
@@ -2315,7 +2415,16 @@ extension HostCallController{
         var mainParams  = [String : Any]()
         mainParams["id"] = "stoppedSigning"
         mainParams["name"] = currentSlot.user?.hashedId
-        socketClient?.emit(mainParams)
+        let userId = currentSlot.user?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:stoppedSigning:\(userId)", message: AnyJSON(mainParams)) { result in
+            switch result {
+            case let .success(response):
+            print("Successful Publish Response stoppedSigning: \(response)")
+            case let .failure(error):
+            print("Failed Publish Response: \(error.localizedDescription)")
+            }
+        }
+        //socketClient?.emit(mainParams)
     }
     
     private func resetCanvas(){

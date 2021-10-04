@@ -34,16 +34,42 @@ class AutographyHostCanvas: ExtendedView {
     }
     
     func registerScreenShotLoaded(){
-        //<##> have to work on
         
-        socketListener?.onEvent("screenshotLoaded", completion: { (response) in
-            
-            Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
-            
-            self.mainImageView?.blurImageView?.isHidden = true
-            self.mainImageView?.isUserInteractionEnabled = true
-            self.signatureAccessoryDoneButton?.isUserInteractionEnabled = true
-        })
+//        socketListener?.onEvent("screenshotLoaded", completion: { (response) in
+//            
+//            Log.echo(key: "yud", text: "I got screenshot loaded in hostCall controller")
+//            
+//            self.mainImageView?.blurImageView?.isHidden = true
+//            self.mainImageView?.isUserInteractionEnabled = true
+//            self.signatureAccessoryDoneButton?.isUserInteractionEnabled = true
+//        })
+        
+//        let userId = self.slotInfo?.user?.id ?? ""
+//        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotLoaded:\(userId)"])
+//        let listener = SubscriptionListener()
+//
+//        // Add listener event callbacks
+//        listener.didReceiveSubscription = { event in
+//            
+//            self.mainImageView?.blurImageView?.isHidden = true
+//            self.mainImageView?.isUserInteractionEnabled = true
+//            self.signatureAccessoryDoneButton?.isUserInteractionEnabled = true
+//            
+//            switch event {
+//            case let .messageReceived(message):
+//            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+//            case let .connectionStatusChanged(status):
+//            print("Status Received: \(status)")
+//            case let .presenceChanged(presence):
+//            print("Presence Received: \(presence)")
+//            case let .subscribeError(error):
+//            print("Subscription Error \(error)")
+//            default:
+//            break
+//            }
+//
+//        }
+//        UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
     func initialization(){

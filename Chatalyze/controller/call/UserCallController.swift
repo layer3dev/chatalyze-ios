@@ -1226,29 +1226,7 @@ class UserCallController: VideoCallController {
     
     func registerForHostManualTriggeredTimeStamp(){
         
-//        print("Registering socket with timer notification \(String(describing: socketListener)) nd the selfie timer is \(String(describing: selfieTimerView))")
-//
-//        socketListener?.onEvent("screenshotCountDown", completion: { [self] (response) in
-//
-//            print(" I got the reponse \(String(describing: response))")
-//
-//            if let responseDict:[String:JSON] = response?.dictionary{
-//                if let dateDict:[String:JSON] = responseDict["message"]?.dictionary{
-//
-//                    if let _ = dateDict["timerStartsAt"]?.boolValue{
-//                        self.changeOrientationToPortrait()
-//                        self.lockDeviceOrientationInPortrait()
-//                        self.selfieWindiwView?.show(with: localMediaPackage, remoteStream: nil)
-//                        guard let remoteView = selfieWindiwView?.remoteStreamVideo else {
-//                            return
-//                        }
-//                        self.connection?.addRenderer(remoteView: remoteView)
-//                    }
-//                }
-//            }
-//        })
-//
-        //========================
+        // opening selphie window
         
         let userId = SignedUserInfo.sharedInstance?.id ?? ""
         UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:screenshotCountDown:\(userId)"])
@@ -1256,15 +1234,20 @@ class UserCallController: VideoCallController {
 
         // Add listener event callbacks
         listener.didReceiveSubscription = { event in
+            
             switch event {
             case let .messageReceived(message):
-            print("Message Received: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
+            
             guard let info = message.payload.rawValue as? [String : Any]
             else{
                 return
             }
                 
-            if (info["timerStartsAt"] as? String ?? "") != "" {
+            let timerDict = info["timerStartsAt"] as? [String: Any] ?? [:]
+                
+        
+                
+            if !(timerDict.isEmpty) {
                 self.changeOrientationToPortrait()
                 self.lockDeviceOrientationInPortrait()
                 self.selfieWindiwView?.show(with: self.localMediaPackage, remoteStream: nil)
@@ -1298,29 +1281,29 @@ class UserCallController: VideoCallController {
         //<##>  have to test
         
         let userId = self.eventInfo?.user?.id ?? ""
-        UserSocket.sharedInstance?.pubnub.subscribe(to: ["chatalyze_selfie_saved\(userId)"])
-        let listener = SubscriptionListener()
-
-        // Add listener event callbacks
-        listener.didReceiveSubscription = { event in
-            switch event {
-            case let .messageReceived(message):
-                self.saveImage()
-                self.selfieWindiwView?.hide()
-            
-            case let .connectionStatusChanged(status):
-            print("Status Received: \(status)")
-            case let .presenceChanged(presence):
-            print("Presence Received: \(presence)")
-            case let .subscribeError(error):
-            print("Subscription Error \(error)")
-            default:
-            break
-            }
-
-        }
-        UserSocket.sharedInstance?.pubnub.add(listener)
-        
+//        UserSocket.sharedInstance?.pubnub.subscribe(to: ["chatalyze_selfie_saved\(userId)"])
+//        let listener = SubscriptionListener()
+//
+//        // Add listener event callbacks
+//        listener.didReceiveSubscription = { event in
+//            switch event {
+//            case let .messageReceived(message):
+//                self.saveImage()
+//                self.selfieWindiwView?.hide()
+//            
+//            case let .connectionStatusChanged(status):
+//            print("Status Received: \(status)")
+//            case let .presenceChanged(presence):
+//            print("Presence Received: \(presence)")
+//            case let .subscribeError(error):
+//            print("Subscription Error \(error)")
+//            default:
+//            break
+//            }
+//
+//        }
+//        UserSocket.sharedInstance?.pubnub.add(listener)
+//        
     }
     
     //<##>
@@ -2065,7 +2048,7 @@ extension UserCallController {
         
         //<##> have to work on
         
-        let userId = self.eventInfo?.user?.id ?? ""
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
         UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:startedSigning:\(userId)"])
         let listener = SubscriptionListener()
 
@@ -2073,15 +2056,16 @@ extension UserCallController {
         listener.didReceiveSubscription = { event in
             switch event {
             case let .messageReceived(message):
-            print("Message Received224342: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
-            guard let info = message.payload.rawValue as? JSON
+            print("Message Received2243428: \(message.payload.rawValue) Publisher: \(message.publisher ?? "defaultUUID")")
+                
+            guard let info = message.payload.rawValue as? [String: Any]
             else{
                 return
             }
            
-                let rawInfo = info["message"]
-                print("nnnn \(info)")
-                self.canvasInfo = CanvasInfo(info : rawInfo)
+            guard let rawInfo = info["message"] else { return }
+            
+            self.canvasInfo = CanvasInfo(info : JSON(rawInfo))
             
             case let .connectionStatusChanged(status):
             print("Status Received: \(status)")
@@ -2103,41 +2087,48 @@ extension UserCallController {
         
         
         
-        socketListener?.onEvent("startedSigning", completion: { (json) in
-            
-//            guard let currentSlot = self.myActiveUserSlot
-//                else{
-//                    return
-//            }
-            let rawInfo = json?["message"]
-            self.canvasInfo = CanvasInfo(info : rawInfo)
-//            guard let currentSlotId  = self.myLiveUnMergedSlot?.id else{
-//                return
-//            }
-            //            guard let canvasCallBookingId = self.screenshotInfo?.callbookingId else{
-            //                return
-            //            }
-            //
-            //            if currentSlotId != canvasCallBookingId {
-            //                return
-            //            }
-            self.lockDeviceOrientationInPortrait()
-//            self.prepateCanvas(info : self.canvasInfo)
-        })
+//        socketListener?.onEvent("stoppedSigning", completion: { (json) in
+//
+//            Log.echo(key: "UserCallController", text: "stoppedSigning")
+//            Log.echo(key: "UserCallController", text: json)
+//
+//
+//            print("user's current orientation after the stopping signature is \(UIDevice.current.orientation) ")
+//
+//            self.resetCanvas()
+//            self.releaseDeviceOrientation()
+//            //self.setExistingDeviceOrientaion()
+//            //self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
+//        })
         
-        socketListener?.onEvent("stoppedSigning", completion: { (json) in
-            
-            Log.echo(key: "UserCallController", text: "stoppedSigning")
-            Log.echo(key: "UserCallController", text: json)
-            
-            
-            print("user's current orientation after the stopping signature is \(UIDevice.current.orientation) ")
-            
+        stopSigningListener()
+    }
+    
+    func stopSigningListener() {
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:stoppedSigning:\(userId)"])
+        let listener = SubscriptionListener()
+
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+            print("Message Received3334443: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
             self.resetCanvas()
             self.releaseDeviceOrientation()
-            //self.setExistingDeviceOrientaion()
-            //self.showToastWithMessage(text: "Autograph Saved..", time: 5.0)
-        })
+            
+            case let .connectionStatusChanged(status):
+            print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+            print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+            print("Subscription Error \(error)")
+            default:
+            break
+            }
+
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
     }
     
     private func resetCanvas(){

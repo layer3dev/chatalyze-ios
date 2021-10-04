@@ -285,6 +285,7 @@ class SelfieTimerView:ExtendedView {
     }
     
     func mimicFlash(){
+        print("hola1 mimicFlash")
         
         DispatchQueue.main.async {
             
@@ -299,11 +300,11 @@ class SelfieTimerView:ExtendedView {
             
             if !(self.isScreenShotTaken){
                 
+                
                 self.isHidden = true
                 self.isScreenShotTaken = true
-                if let listner = self.screenShotListner{
-                    listner()
-                }
+                self.screenShotListner?()
+                print("hola1 t")
             }else{
                 self.isHidden = true
             }
