@@ -548,7 +548,6 @@ class VideoCallController : InterfaceExtendedController {
 //        }
         
        // joining room with pubnub
-        print("abahy22 \(callType)")
        self.registerForJoinRoom(roomId: (callType == "green" ? info.greenRoomId : info.room_id ?? "") )
         
     }
