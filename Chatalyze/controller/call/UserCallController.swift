@@ -1145,11 +1145,22 @@ class UserCallController: VideoCallController {
                 self.mimicScreenShotFlash()
                 if (eventInfo?.isHostManualScreenshot ?? false){
                     selfieWindiwView?.setSelfieImage(with: image)
-                    var data:[String:Any] = [String:Any]()
-                    var messageData:[String:Any] = [String:Any]()
+//                    var data:[String:Any] = [String:Any]()
+//                    var messageData:[String:Any] = [String:Any]()
+//                    messageData = ["capturedSelfie":true]
+//                    data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
+//                    self.socketClient?.emit(data)
+                    let userId = self.eventInfo?.user?.id ?? ""
+                    var messageData:[String:Bool] = [String:Bool]()
                     messageData = ["capturedSelfie":true]
-                    data = ["id":"screenshotCountDown","name":self.eventInfo?.user?.hashedId ?? "","message":messageData]
-                    self.socketClient?.emit(data)
+                    UserSocket.sharedInstance?.pubnub.publish( channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+                      switch result {
+                      case let .success(response):
+                        print("Successful Publish Response: \(response)")
+                      case let .failure(error):
+                        print("Failed Publish Response: \(error.localizedDescription)")
+                      }
+                    }
                     Log.echo(key: "abhishekD", text: "Ohh.!! its manual selfie,I need to return from here without saving, HOST suppose to save")
                     return
                 }
@@ -1243,10 +1254,8 @@ class UserCallController: VideoCallController {
                 return
             }
                 
-            let timerDict = info["timerStartsAt"] as? [String: Any] ?? [:]
-                
-        
-                
+            let timerDict = info["timerStartsAt"] as? String ?? ""
+                                
             if !(timerDict.isEmpty) {
                 self.changeOrientationToPortrait()
                 self.lockDeviceOrientationInPortrait()
@@ -1255,7 +1264,12 @@ class UserCallController: VideoCallController {
                     return
                 }
                 self.connection?.addRenderer(remoteView: remoteView)
+            } else if let isSelfieToCapture = (info["capturedSelfie"] as? Bool), isSelfieToCapture {
+                if let eventInfo = self.eventInfo{
+                    self.selfieTimerView?.takeInstantScreenshot(eventInfo: eventInfo)
+                }
             }
+
             
             case let .connectionStatusChanged(status):
             print("Status Received: \(status)")

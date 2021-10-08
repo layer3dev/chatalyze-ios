@@ -705,14 +705,24 @@ class HostCallController: VideoCallController {
             Log.echo(key: "yud", text: "Required requiredWebCompatibleTimeStamp is \(requiredWebCompatibleTimeStamp)")
             //End
             //var data:[String:Any] = [String:Any]()
-            var messageData:[String:String] = [String:String]()
-            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
+//            var messageData:[String:String] = [String:String]()
+//            messageData = ["timerStartsAt":"\(requiredWebCompatibleTimeStamp)"]
             //name : callServerId($scope.currentBooking.user.id)
             //data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
             //socketClient?.emit(data)
-            
+//            struct TimeStampMessage: Codable, JSONCodable {
+////                var id: String?
+////                var name: String?
+//                var timerStartsAt: TimeStampData?
+//            }
+            struct TimeStampData: Codable, JSONCodable {
+                var timerStartsAt: String?
+            }
+            let screenshotData = TimeStampData(timerStartsAt: "\(requiredWebCompatibleTimeStamp)")
+//            let screenshotMessage = TimeStampMessage(timerStartsAt: screenshotData)
+
             let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
-            UserSocket.sharedInstance?.pubnub.publish(channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+            UserSocket.sharedInstance?.pubnub.publish(channel: "ch:screenshotCountDown:\(userId)", message: screenshotData) { result in
               switch result {
               case let .success(response):
                 print("Successful Publish Response: \(response)")
@@ -740,10 +750,22 @@ class HostCallController: VideoCallController {
     }
     
     private func registerForCaptureScreenshot(){
-        var messageData:[String:Bool] = [String:Bool]()
-        messageData = ["captureSelfie":true]
+//        var data:[String:Any] = [String:Any]()
+//        var messageData:[String:Bool] = [String:Bool]()
+//        messageData = ["captureSelfie":true]
         let userId = self.eventInfo?.currentSlot?.user?.id ?? ""
-        UserSocket.sharedInstance?.pubnub.publish( channel: "ch:screenshotCountDown:\(userId)", message: messageData) { result in
+//        data = ["id":"screenshotCountDown","name":self.eventInfo?.currentSlot?.user?.hashedId ?? "","message":messageData]
+//        struct ScreenShotMessage: Codable, JSONCodable {
+//            var id: String?
+//            var name: String?
+//            var message: ScreenShotData?
+//        }
+        struct ScreenShotData: Codable, JSONCodable {
+            var captureSelfie: Bool
+        }
+        let screenshotData = ScreenShotData(captureSelfie: true)
+//        let screenshotMessage = ScreenShotMessage(id: "screenshotCountDown", name: self.eventInfo?.currentSlot?.user?.hashedId ?? "", message: screenshotData)
+        UserSocket.sharedInstance?.pubnub.publish(channel: "ch:screenshotCountDown:\(userId)", message: screenshotData) { result in
           switch result {
           case let .success(response):
             print("Successful Publish Response: \(response)")

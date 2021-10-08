@@ -308,7 +308,7 @@ extension UserCallConnection{
             // Use the local media that we prepared earlier.
             builder.audioTracks = [audioTrack]
             builder.videoTracks = [videoTrack]
-            builder.region = "sg1"
+            builder.region = "au1"
             
 //            // Use the preferred audio codec
 //            if let preferredAudioCodec = Settings.shared.audioCodec {
