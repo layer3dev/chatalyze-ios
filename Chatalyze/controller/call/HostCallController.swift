@@ -175,6 +175,8 @@ class HostCallController: VideoCallController {
     }
     override func initialization(){
         super.initialization()
+        
+        callLogger?.logDeviceInfo()
        
         initializeVariable()
         layoutrecordingOption()
@@ -191,12 +193,13 @@ class HostCallController: VideoCallController {
         UserSocket.sharedInstance?.pubnub.publish(channel: "ch:hangup:" + userId, message: param) { result in
             switch result {
             case let .success(response):
-            print("Successful Publish hangup: \(response)")
+            print("Successful Publish hangup from host: \(response)")
             case let .failure(error):
             print("Failed Publish hangup: \(error.localizedDescription)")
             }
         }
     }
+    //<##>
     // listening: if the monitor has skipped the current call
     func hangupListener() {
         let userId = SignedUserInfo.sharedInstance?.id ?? ""

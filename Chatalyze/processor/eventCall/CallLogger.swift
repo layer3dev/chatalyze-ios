@@ -33,6 +33,7 @@ class CallLogger : NSObject {
     
     
     func logDeviceInfo(){
+        print("mmmk")
        
         let deviceInfo = DeviceApplicationInfo().rawInfo()
         var meta = [String : Any]()
@@ -48,7 +49,8 @@ class CallLogger : NSObject {
         info["type"] = "system_info"
         info["meta"] = "\(meta)"
     
-        emit(info: info)
+        //emit(info: info)
+        _emit(info: info)
     }
     
     private func extractState(stats : [StatsReport]) ->  (local : String, remote : String)?{
@@ -133,7 +135,8 @@ class CallLogger : NSObject {
         info["speed"] = "\(speed ?? 0)"
         info["meta"] = "\(speedInfo)"
         
-        emit(info: info)
+        //emit(info: info)
+        _emit(info: info)
     }
     
     func logSelfieLogs(speed : Double?){
@@ -271,7 +274,7 @@ class CallLogger : NSObject {
         params["log_type"] = "videoResolution"
         
         
-        emit(info: params)
+        _emit(info: params)
     }
     
     func logVideoResolutionHost( size : CGSize){
@@ -286,7 +289,7 @@ class CallLogger : NSObject {
         params["log_type"] = "videoResolution"
         
         
-        emit(info: params)
+        _emit(info: params)
     }
     
     func logSelfieTimerAcknowledgment(timerStartsAt:String){
@@ -325,8 +328,18 @@ class CallLogger : NSObject {
     }
     
     private func emit(info : [String : String]){
+        //Log.echo(key: "json dict", text: info.JSONDescription())
+        //userSocket?.pubnub.publish(channel: "log", message: info, completion: { result in
+            //print(result)
+        //})
+    }
+    
+    
+    private func _emit(info : [String : String]){
+        /*
+         As per client only two logs should be maintained: device info & speed
+         */
         Log.echo(key: "json dict", text: info.JSONDescription())
-//        userSocket?.socket?.emit("log", info)
         userSocket?.pubnub.publish(channel: "log", message: info, completion: { result in
             print(result)
         })

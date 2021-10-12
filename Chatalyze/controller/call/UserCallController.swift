@@ -221,6 +221,7 @@ class UserCallController: VideoCallController {
     
     override func initialization(){
         super.initialization()
+        callLogger?.logDeviceInfo()
         layoutCustomBackGrnd()
         layoutrecordingOption()
         initializeVariable()

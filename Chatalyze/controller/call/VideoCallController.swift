@@ -622,8 +622,6 @@ class VideoCallController : InterfaceExtendedController {
     
     private func updateToReadyState(){
         
-        callLogger?.logDeviceInfo()
-        
         socketListener?.newConnectionListener(completion: { [weak self] (success)  in
             
             self?.callLogger?.logSocketConnectionState()
