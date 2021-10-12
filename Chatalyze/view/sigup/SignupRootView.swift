@@ -8,7 +8,7 @@
 
 import Foundation
 import FacebookCore
-import FacebookLogin
+//import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Bugsnag
@@ -123,20 +123,20 @@ class SignupRootView:ExtendedView{
         }
         
         //alias don't seem to have any option to share user's information so both alias and identify will be called consecutively
-        SEGAnalytics.shared().alias(userId)
-        SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
-        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
-                                         andEmail:info.email ?? "")
+//        SEGAnalytics.shared().alias(userId)
+//        SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
+//        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+//                                         andEmail:info.email ?? "")
     }
     
-    @IBAction fileprivate func fbLoginAction(){
-        
-        showWelcomeScreen(response: {
-            
-            self.resetErrorStatus()
-            self.fbLogin()
-        })
-    }
+//    @IBAction fileprivate func fbLoginAction(){
+//
+//        showWelcomeScreen(response: {
+//
+//            self.resetErrorStatus()
+//            self.fbLogin()
+//        })
+//    }
     
   
   @IBAction fileprivate func appleLoginAction(){
@@ -264,44 +264,44 @@ extension SignupRootView{
 
 extension SignupRootView{
     
-    fileprivate func fbLogin(){
-        
-        let loginManager = LoginManager()
-        loginManager.logOut() 
-        loginManager.logIn(permissions: [Permission.publicProfile , Permission.email], viewController: controller) { [weak self] (loginResult) in
-            
-            switch loginResult {
-            case .failed(let error):
-                self?.showError(text: error.localizedDescription)
-            case .cancelled:
-                self?.showError(text: "Login Cancelled !")
-            case .success( _,  _, let accessToken):
-                self?.fetchFBUserInfo(accessToken: accessToken)
-                break
-            }
-        }
-    }
+//    fileprivate func fbLogin(){
+//
+//        let loginManager = LoginManager()
+//        loginManager.logOut()
+//        loginManager.logIn(permissions: [Permission.publicProfile , Permission.email], viewController: controller) { [weak self] (loginResult) in
+//
+//            switch loginResult {
+//            case .failed(let error):
+//                self?.showError(text: error.localizedDescription)
+//            case .cancelled:
+//                self?.showError(text: "Login Cancelled !")
+//            case .success( _,  _, let accessToken):
+//                self?.fetchFBUserInfo(accessToken: accessToken)
+//                break
+//            }
+//        }
+//    }
     
-    fileprivate func fetchFBUserInfo(accessToken : AccessToken?){
-        
-        DispatchQueue.main.async(execute: {
-            self.controller?.showLoader()
-         
-            FacebookLogin().signup(accessToken: accessToken, completion: { (success, message, info) in
-                
-                self.controller?.stopLoader()
-                
-                if(success){
-                    
-                    self.registerWithSegmentAnalytics(info : info)
-                    
-                    RootControllerManager().updateRoot()
-                    return
-                }
-                self.showError(text: message)
-            })
-        })
-    }
+//    fileprivate func fetchFBUserInfo(accessToken : AccessToken?){
+//        
+//        DispatchQueue.main.async(execute: {
+//            self.controller?.showLoader()
+//         
+//            FacebookLogin().signup(accessToken: accessToken, completion: { (success, message, info) in
+//                
+//                self.controller?.stopLoader()
+//                
+//                if(success){
+//                    
+//                    self.registerWithSegmentAnalytics(info : info)
+//                    
+//                    RootControllerManager().updateRoot()
+//                    return
+//                }
+//                self.showError(text: message)
+//            })
+//        })
+//    }
 }
 
 

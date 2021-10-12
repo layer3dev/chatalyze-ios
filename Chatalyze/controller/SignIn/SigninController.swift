@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FacebookLogin
+//import FacebookLogin
 import AuthenticationServices
 import GoogleSignIn
 
@@ -66,12 +66,12 @@ class SigninController: InterfaceExtendedController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    @IBAction func googleSignIn(){
-        
-        
-        GIDSignIn.sharedInstance().presentingViewController = self
-        GIDSignIn.sharedInstance()?.signIn()
-    }
+//    @IBAction func googleSignIn(){
+//
+//
+//        GIDSignIn.sharedInstance().presentingViewController = self
+//        GIDSignIn.sharedInstance()?.signIn()
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +99,7 @@ class SigninController: InterfaceExtendedController {
       }
         
         //google Sgnin-in btn
-        GIDSignIn.sharedInstance()?.delegate = self
+//        GIDSignIn.sharedInstance()?.delegate = self
         
         if UIDevice.current.userInterfaceIdiom == .phone{
             self.googleSignInView?.layer.cornerRadius = 45/2
@@ -161,32 +161,32 @@ class SigninController: InterfaceExtendedController {
     }
 }
 
-extension SigninController : GIDSignInDelegate{
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        rootView?.resetErrorStatus()
-        SigninController().showLoader()
-        if error != nil{
-            rootView?.showError(text: error.localizedDescription)
-            SigninController().stopLoader()
-            return
-        }
-        
-              let idToken = user.authentication.accessToken
-        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
-            SigninController().stopLoader()
-            
-            if(success){
-                
-                SigninRootView().registerWithSegmentAnalytics(info : info)
-                RootControllerManager().updateRoot()
-                return
-            }else{
-                self.rootView?.showError(text: message)
-               
-            }
-        }
-    }
-}
+//extension SigninController : GIDSignInDelegate{
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        rootView?.resetErrorStatus()
+//        SigninController().showLoader()
+//        if error != nil{
+//            rootView?.showError(text: error.localizedDescription)
+//            SigninController().stopLoader()
+//            return
+//        }
+//
+//              let idToken = user.authentication.accessToken
+//        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
+//            SigninController().stopLoader()
+//
+//            if(success){
+//
+//                SigninRootView().registerWithSegmentAnalytics(info : info)
+//                RootControllerManager().updateRoot()
+//                return
+//            }else{
+//                self.rootView?.showError(text: message)
+//
+//            }
+//        }
+//    }
+//}
 
 extension SigninController{
     

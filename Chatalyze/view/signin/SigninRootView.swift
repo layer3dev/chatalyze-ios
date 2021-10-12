@@ -8,7 +8,7 @@
 
 import UIKit
 import FacebookCore
-import FacebookLogin
+//import FacebookLogin
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Bugsnag
@@ -38,7 +38,7 @@ class SigninRootView: ExtendedView {
         //showWelcomeScreen(response: {
            
             self.resetErrorStatus()
-            self.fbLogin()
+//            self.fbLogin()
         //})
     }
   
@@ -177,47 +177,47 @@ extension SigninRootView : UITextFieldDelegate{
 
 extension SigninRootView{
     
-    fileprivate func fbLogin(){
-        
-        let loginManager = LoginManager()
-
-        loginManager.logOut()
-
-        loginManager.logIn(permissions: [Permission.publicProfile,Permission.email], viewController: controller) { [weak self] (loginResult) in
-            
-            Log.echo(key: "yud", text: "loginResult in the facebook is \(loginResult)")
-            
-            switch loginResult {
-            case .failed(let error):
-                
-                self?.showError(text: error.localizedDescription)
-                Log.echo(key: "yud", text: "Error in the facebook is \(error.localizedDescription)")
-            case .cancelled:
-                self?.showError(text: "Login Cancelled !".localized())
-            case .success( _,  _, let accessToken):
-                self?.fetchFBUserInfo(accessToken: accessToken)
-                Log.echo(key: "yud", text: "Succes facebook token is \(accessToken)")
-                break
-            }
-        }
-    }
+//    fileprivate func fbLogin(){
+//
+//        let loginManager = LoginManager()
+//
+//        loginManager.logOut()
+//
+//        loginManager.logIn(permissions: [Permission.publicProfile,Permission.email], viewController: controller) { [weak self] (loginResult) in
+//
+//            Log.echo(key: "yud", text: "loginResult in the facebook is \(loginResult)")
+//
+//            switch loginResult {
+//            case .failed(let error):
+//
+//                self?.showError(text: error.localizedDescription)
+//                Log.echo(key: "yud", text: "Error in the facebook is \(error.localizedDescription)")
+//            case .cancelled:
+//                self?.showError(text: "Login Cancelled !".localized())
+//            case .success( _,  _, let accessToken):
+//                self?.fetchFBUserInfo(accessToken: accessToken)
+//                Log.echo(key: "yud", text: "Succes facebook token is \(accessToken)")
+//                break
+//            }
+//        }
+//    }
     
     
-    fileprivate func fetchFBUserInfo(accessToken :AccessToken?){
-        
-        DispatchQueue.main.async(execute: {
-            self.controller?.showLoader()
-            FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
-                self.controller?.stopLoader()
-                if(success){
-                    self.registerWithSegmentAnalytics(info : info)
-                    RootControllerManager().updateRoot()
-                    return
-                }
-                self.showError(text: message)
-            })
-        })
-    }
+//    fileprivate func fetchFBUserInfo(accessToken :AccessToken?){
+//        
+//        DispatchQueue.main.async(execute: {
+//            self.controller?.showLoader()
+//            FacebookLogin().signin(accessToken: accessToken, completion: { (success, message, info) in
+//                self.controller?.stopLoader()
+//                if(success){
+//                    self.registerWithSegmentAnalytics(info : info)
+//                    RootControllerManager().updateRoot()
+//                    return
+//                }
+//                self.showError(text: message)
+//            })
+//        })
+//    }
 }
 
 extension SigninRootView{
@@ -258,8 +258,8 @@ extension SigninRootView{
                 return
         }
         SEGAnalytics.shared().identify(userId, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
-        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
-                                         andEmail:info.email ?? "")
+//        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+//                                         andEmail:info.email ?? "")
     }
     
     func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String, _ response : SignedUserInfo?)->())?){

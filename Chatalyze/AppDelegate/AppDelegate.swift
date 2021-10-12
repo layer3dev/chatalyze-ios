@@ -38,11 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SBUMain.initialize(applicationId: AppConnectionConfig.sendbirdAppId)
         SBDMain.initWithApplicationId(AppConnectionConfig.sendbirdAppId)
         Chat.initialize(accountKey: "iJA9Igazg7Gg3w1y9MoBZK5YWpNoBOVK")
-        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance().clientID = "1084817921581-q7mnvrhvbsh3gkudbq52d47v2khle66s.apps.googleusercontent.com"
         SKPaymentQueue.default().add(InAppPurchaseObserver.sharedInstance)
         UNUserNotificationCenter.current().delegate = self
         initialization()
-        bugSnagInitialization()
+//        bugSnagInitialization()
         initializeSegmentIO()
         disableAppToSwitchIntoSleepMode()
         test()
@@ -54,17 +54,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    fileprivate func bugSnagInitialization(){
-        
-        Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
-        
-        if let id = SignedUserInfo.sharedInstance?.id {
-        
-            Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
-        }
-        
-        Bugsnag.configuration()?.reportBackgroundOOMs = false
-    }
+//    fileprivate func bugSnagInitialization(){
+//        
+//        Bugsnag.start(withApiKey: AppConnectionConfig.bugsnagKey)
+//        
+//        if let id = SignedUserInfo.sharedInstance?.id {
+//        
+//            Bugsnag.configuration()?.setUser(id, withName: SignedUserInfo.sharedInstance?.fullName, andEmail: SignedUserInfo.sharedInstance?.email)
+//        }
+//        
+//        Bugsnag.configuration()?.reportBackgroundOOMs = false
+//    }
 
     fileprivate func initializeSegmentIO(){
         

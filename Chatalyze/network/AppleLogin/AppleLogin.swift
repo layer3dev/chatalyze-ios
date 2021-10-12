@@ -63,7 +63,7 @@ class AppleLogin{
         info.accessToken = token
         info.save()
         
-        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",andEmail:info.email ?? "")
+//        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",andEmail:info.email ?? "")
 //        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignIn", code:408, userInfo:nil))
 
         completion(true, "", info)
@@ -134,8 +134,8 @@ class AppleLogin{
             SEGAnalytics.shared().alias(id)
         }
         SEGAnalytics.shared().identify(info.id, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
-        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
-                                         andEmail:info.email ?? "")
+//        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
+//                                         andEmail:info.email ?? "")
 //        Bugsnag.notifyError(NSError(domain:"com.customCrash:SignIn", code:408, userInfo:nil))
 
         completion(true, "", info)

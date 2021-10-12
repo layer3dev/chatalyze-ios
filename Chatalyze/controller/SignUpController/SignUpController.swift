@@ -139,7 +139,7 @@ class SignUpController: InterfaceExtendedController {
         
       }
         
-        GIDSignIn.sharedInstance()?.delegate = self
+//        GIDSignIn.sharedInstance()?.delegate = self
        
         googleSignupView?.clipsToBounds = true
        
@@ -199,11 +199,11 @@ class SignUpController: InterfaceExtendedController {
     }
     
     
-    @IBAction func googleSignIn(){
-        GIDSignIn.sharedInstance().presentingViewController = self
-        GIDSignIn.sharedInstance()?.signIn()
-        
-    }
+//    @IBAction func googleSignIn(){
+//        GIDSignIn.sharedInstance().presentingViewController = self
+//        GIDSignIn.sharedInstance()?.signIn()
+//
+//    }
     
 
     override func didReceiveMemoryWarning() {
@@ -222,33 +222,34 @@ extension SignUpController {
     }
 }
 
-extension SignUpController : GIDSignInDelegate{
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        rootView?.resetErrorStatus()
-        SignUpController().showLoader()
-        if error != nil{
-            rootView?.showError(text: error.localizedDescription)
-            SignUpController().stopLoader()
-            return
-        }
-        
-        let idToken = user.authentication.accessToken
-        
-        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
-            SignUpController().stopLoader()
-            
-            if(success){
-                
-                SigninRootView().registerWithSegmentAnalytics(info : info)
-                RootControllerManager().updateRoot()
-                 return
-            }else{
-                self.rootView?.showError(text: message)
-               
-            }
-        }
-    }
-}
+//extension SignUpController : GIDSignInDelegate{
+//
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        rootView?.resetErrorStatus()
+//        SignUpController().showLoader()
+//        if error != nil{
+//            rootView?.showError(text: error.localizedDescription)
+//            SignUpController().stopLoader()
+//            return
+//        }
+//
+//        let idToken = user.authentication.accessToken
+//
+//        GoogleSignIn().signin(accessToken: idToken) { (success, message, info) in
+//            SignUpController().stopLoader()
+//
+//            if(success){
+//
+//                SigninRootView().registerWithSegmentAnalytics(info : info)
+//                RootControllerManager().updateRoot()
+//                 return
+//            }else{
+//                self.rootView?.showError(text: message)
+//
+//            }
+//        }
+//    }
+//}
 
 extension SignUpController: ASAuthorizationControllerDelegate{
   
