@@ -1294,21 +1294,34 @@ class UserCallController: VideoCallController {
                 return
             }
                 
-            let timerDict = info["timerStartsAt"] as? String ?? ""
+                if info.keys.contains("timerStartsAt") {
+                    self.changeOrientationToPortrait()
+                    self.lockDeviceOrientationInPortrait()
+                    self.selfieWindiwView?.show(with: self.localMediaPackage, remoteStream: nil)
+                    guard let remoteView = self.selfieWindiwView?.remoteStreamVideo else {
+                        return
+                    }
+                    self.connection?.addRenderer(remoteView: remoteView)
+                } else if info.keys.contains("capturedSelfie") {
+                    if let eventInfo = self.eventInfo{
+                        self.selfieTimerView?.takeInstantScreenshot(eventInfo: eventInfo)
+                    }
+                }
+//            let timerDict = info["timerStartsAt"] as? String ?? ""
                                 
-            if !(timerDict.isEmpty) {
-                self.changeOrientationToPortrait()
-                self.lockDeviceOrientationInPortrait()
-                self.selfieWindiwView?.show(with: self.localMediaPackage, remoteStream: nil)
-                guard let remoteView = self.selfieWindiwView?.remoteStreamVideo else {
-                    return
-                }
-                self.connection?.addRenderer(remoteView: remoteView)
-            } else if let isSelfieToCapture = (info["capturedSelfie"] as? Bool), isSelfieToCapture {
-                if let eventInfo = self.eventInfo{
-                    self.selfieTimerView?.takeInstantScreenshot(eventInfo: eventInfo)
-                }
-            }
+//            if !(timerDict.isEmpty) {
+//                self.changeOrientationToPortrait()
+//                self.lockDeviceOrientationInPortrait()
+//                self.selfieWindiwView?.show(with: self.localMediaPackage, remoteStream: nil)
+//                guard let remoteView = self.selfieWindiwView?.remoteStreamVideo else {
+//                    return
+//                }
+//                self.connection?.addRenderer(remoteView: remoteView)
+//            } else if let isSelfieToCapture = (info["capturedSelfie"] as? Bool), isSelfieToCapture {
+//                if let eventInfo = self.eventInfo{
+//                    self.selfieTimerView?.takeInstantScreenshot(eventInfo: eventInfo)
+//                }
+//            }
 
             
             case let .connectionStatusChanged(status):

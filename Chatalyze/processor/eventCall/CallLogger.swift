@@ -274,7 +274,7 @@ class CallLogger : NSObject {
         params["log_type"] = "videoResolution"
         
         
-        _emit(info: params)
+//        _emit(info: params)
     }
     
     func logVideoResolutionHost( size : CGSize){
@@ -289,7 +289,7 @@ class CallLogger : NSObject {
         params["log_type"] = "videoResolution"
         
         
-        _emit(info: params)
+//        _emit(info: params)
     }
     
     func logSelfieTimerAcknowledgment(timerStartsAt:String){
