@@ -193,11 +193,13 @@ class UserCallController: VideoCallController {
     
     override func renderIdleMedia(){
         userRootView?.youtubeContainerView?.show()
+        self.recordingLbl.isHidden = true
     }
     
     override func stopIdleMedia(){
         userRootView?.youtubeContainerView?.hide()
         spotNumberView?.hideSpotInView()
+        checkforRecordingStatus()
     }
     
     
@@ -642,17 +644,16 @@ class UserCallController: VideoCallController {
                 return
         }
         
-        if(!isAvailableInRoom(targetUserId: hostId)){
-            setStatusMessage(type : .userDidNotJoin)
-            return
-        }
-        
         if(activeSlot.isPreconnectEligible){
             setStatusMessage(type : .preConnectedSuccess)
             checkforRecordingStatus()
             return;
         }
         
+        if(!isAvailableInRoom(targetUserId: hostId)){
+            setStatusMessage(type : .userDidNotJoin)
+            return
+        }
         
         if(activeSlot.isLIVE && (connection?.isStreaming ?? false)){
             setStatusMessage(type: .connected)
@@ -768,12 +769,48 @@ class UserCallController: VideoCallController {
         self.userRootView?.delegateCutsom = self
     }
     
-    
+    func hangupListener() {
+        let userId = SignedUserInfo.sharedInstance?.id ?? ""
+        UserSocket.sharedInstance?.pubnub.subscribe(to: ["ch:hangup:\(userId)"])
+        let listener = SubscriptionListener()
+        
+        // Add listener event callbacks
+        listener.didReceiveSubscription = { event in
+            switch event {
+            case let .messageReceived(message):
+                
+                guard let info = message.payload.rawValue as? [String : Any]
+                else{
+                    return
+                }
+                if let value = info["value"] as? Bool {
+                    self.hangup(hangup: value)
+                }
+                //        let isCallSkippedByMonitor = info["value"] as? Bool ?? false
+                //        if isCallSkippedByMonitor {
+                //                self.processHangupEvent(data : info)
+                //        }
+                
+                print("Message Receivedfffrt: \(info) Publisher: \(message.publisher ?? "defaultUUID")")
+                
+            case let .connectionStatusChanged(status):
+                print("Status Received: \(status)")
+            case let .presenceChanged(presence):
+                print("Presence Received: \(presence)")
+            case let .subscribeError(error):
+                print("Subscription Error \(error)")
+            default:
+                break
+            }
+            
+        }
+        UserSocket.sharedInstance?.pubnub.add(listener)
+    }
     
     
     override func registerForListeners(){
         super.registerForListeners()
-        
+        hangupListener()
         socketListener?.onEvent("hangUp", completion: { [weak self] (json) in
             
             if(self?.socketClient == nil){
@@ -783,6 +820,8 @@ class UserCallController: VideoCallController {
         })
         
     }
+    
+    
     
     private func processHangupEvent(data : JSON?){
         
