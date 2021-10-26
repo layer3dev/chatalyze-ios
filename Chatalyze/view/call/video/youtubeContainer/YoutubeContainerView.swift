@@ -155,6 +155,7 @@ class YoutubeContainerView : ExtendedView {
         }
         
         heightConstraint.priority = UILayoutPriority.init(rawValue: 1)
+        youtubePlayerView?.playVideo()
     }
     
     func hide(){
@@ -171,7 +172,7 @@ class YoutubeContainerView : ExtendedView {
         }
         
         heightConstraint.priority = UILayoutPriority.init(rawValue: 999)
-//        youtubePlayerView?.pauseVideo()
+        youtubePlayerView?.pauseVideo()
 //        youtubePlayerView?.removeWebView()
     }
 }

@@ -193,6 +193,7 @@ class UserCallController: VideoCallController {
     
     override func renderIdleMedia(){
         userRootView?.youtubeContainerView?.show()
+        self.isPreConnected = false
         self.recordingLbl.isHidden = true
     }
     
@@ -783,13 +784,13 @@ class UserCallController: VideoCallController {
                 else{
                     return
                 }
-                if let value = info["value"] as? Bool {
-                    self.hangup(hangup: value)
+//                if let value = info["value"] as? Bool {
+//                    self.hangup(hangup: value)
+//                }
+                let isCallSkippedByMonitor = info["value"] as? Bool ?? false
+                if isCallSkippedByMonitor {
+                    self.hangup(hangup: isCallSkippedByMonitor)
                 }
-                //        let isCallSkippedByMonitor = info["value"] as? Bool ?? false
-                //        if isCallSkippedByMonitor {
-                //                self.processHangupEvent(data : info)
-                //        }
                 
                 print("Message Receivedfffrt: \(info) Publisher: \(message.publisher ?? "defaultUUID")")
                 
