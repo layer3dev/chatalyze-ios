@@ -147,8 +147,8 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm:ss a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
-            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "EEE, MMM dd, yyyy" : "dd/MM/yyyy")
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm:ss a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "EEE, MMM dd, yyyy" : Locale.current.languageCode == "zh" ? "yyyy 年 MM 月 d 日" : "dd/MM/yyyy")
             formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "") \(TimeZone.current.abbreviation() ?? "")"
         }
     }
@@ -162,7 +162,7 @@ class MyTicketsVerticalCell: ExtendedTableCell {
         set{
             
             let date = newValue
-            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm:ss a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm:ss a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
         }
     }
     

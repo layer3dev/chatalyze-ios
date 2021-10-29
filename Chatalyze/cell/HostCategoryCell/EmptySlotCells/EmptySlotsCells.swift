@@ -44,6 +44,8 @@ class EmptySlotsCells:ExtendedCollectionCell {
             let dateFormatter = DateFormatter()
             if Locale.current.languageCode == "en"{
                 dateFormatter.dateFormat = "h:mm:ss"
+            } else if Locale.current.languageCode == "zh" {
+                dateFormatter.dateFormat = "下午 h 點 mm 分"
             }else{
                 dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
             }

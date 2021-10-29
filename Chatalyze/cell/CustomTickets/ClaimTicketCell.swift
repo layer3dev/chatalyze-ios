@@ -56,6 +56,9 @@ class ClaimTicketCell: ExtendedTableCell {
         if Locale.current.languageCode == "en"{
             dateFormate = "EEE, MMM dd, yyyy"
             timeFortmate = "h:mm a"
+        } else if Locale.current.languageCode == "zh" {
+            dateFormate = "yyyy 年 MM 月 d 日"
+            timeFortmate = "下午 h 點 mm 分"
         }else{
             dateFormate = "dd/MM/yyyy"
             timeFortmate = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"

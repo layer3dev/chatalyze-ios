@@ -22,7 +22,7 @@ class FetchProfileProcessor{
         let params = [String : Any]()
         Log.echo(key: "yud", text: "My sended Dict is\(params)")
         
-        ServerProcessor().request(.get, url, encoding: .defaultEncoding,authorize :false) { (success, response) in
+        ServerProcessor().request(.get, url, encoding: .defaultEncoding,authorize :true) { (success, response) in
             self.handleResponse(withSuccess: success, response: response, completion: completion)
         }
     }

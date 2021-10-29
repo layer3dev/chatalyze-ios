@@ -18,8 +18,8 @@ class breakFeatureView : ExtendedView {
         
         self.isHidden = false
         
-        headingLabel?.text = "BREAK"
-        nextChatLabel?.text = "Next chat starts in: "
+        headingLabel?.text = "BREAK".localized()
+        nextChatLabel?.text = "Next chat starts in: ".localized()
         timeLabel?.text = time
         
         

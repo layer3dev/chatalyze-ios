@@ -55,13 +55,13 @@ class MySessionsInfo: NSObject {
             
             let startDate = newValue
             
-            self.startTime = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            self.startTime = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
             
-            self.startDate = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : "dd/MM/yyyy")
+            self.startDate = DateParser.convertDateToDesiredFormat(date: startDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : Locale.current.languageCode == "zh" ? "yyyy 年 MM 月 d 日" : "dd/MM/yyyy")
             
-            self.endDate = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : "dd/MM/yyyy")
+            self.endDate = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : Locale.current.languageCode == "zh" ? "yyyy 年 MM 月 d 日" : "dd/MM/yyyy")
             
-            self.endTime = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            self.endTime = DateParser.convertDateToDesiredFormat(date: _endDate, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
         }
     }
     
