@@ -612,11 +612,12 @@ class VideoCallController : InterfaceExtendedController {
          else{
          return
          }*/
+        UserSocket.sharedInstance?.pubnub.unsubscribe(from: ["ch:callroom:" + (room_Id ?? "")], and: ["ch:callroom:" + (roomId ?? "")], presenceOnly: false)
+//        var data = [String : Any]()
+//        data["userId"] = userId
+//        data["message"] = "User hangup the call!"
+//        socketClient?.emit("disconnect", data)
         
-        var data = [String : Any]()
-        data["userId"] = userId
-        data["message"] = "User hangup the call!"
-        socketClient?.emit("disconnect", data)
     }
     
     
