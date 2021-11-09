@@ -1267,7 +1267,9 @@ extension VideoCallController{
         if type == .idealMedia{
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
-            self.hideAlertContainer()
+            if !isEventCancelled {
+                self.hideAlertContainer()
+            }
             renderIdleMedia()
             return
         }
@@ -1278,8 +1280,9 @@ extension VideoCallController{
             
             self.showChatalyzeLogo()
             self.hidePreConnectLabel()
-            self.hideAlertContainer()
-            
+            if !isEventCancelled {
+                self.hideAlertContainer()
+            }
             return
         }
         
@@ -1295,8 +1298,10 @@ extension VideoCallController{
         
         self.hideChatalyzeLogo()
         self.hidePreConnectLabel()
-        self.hideDelayAndCancelAlert()
-        self.hideAlertContainer()
+        if !isEventCancelled {
+            self.hideDelayAndCancelAlert()
+            self.hideAlertContainer()
+        }
         
         var fontSize = 18
         
