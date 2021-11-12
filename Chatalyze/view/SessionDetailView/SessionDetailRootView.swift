@@ -164,6 +164,15 @@ class SessionDetailRootView: ExtendedView {
                     dateFormatter.dateFormat = "h:mm a"
                     dateFormatter.amSymbol = "AM"
                     dateFormatter.pmSymbol = "PM"
+                } else if Locale.current.languageCode == "zh" {
+                    dateFormatter.dateFormat = "下午 h 點 mm 分"
+                } else if Locale.current.languageCode == "ko" {
+                    dateFormatter.dateFormat = "h:mm:ss a"
+                    if dateFormatter.string(from: date).contains("AM") {
+                        dateFormatter.dateFormat = "오전 h시 mm분"
+                    } else {
+                        dateFormatter.dateFormat = "오후 h시 mm분"
+                    }
                 }else{
                     dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
                 }

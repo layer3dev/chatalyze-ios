@@ -69,9 +69,9 @@ class MyTicketsCell: ExtendedCollectionCell {
             
             let date = newValue
             
-            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : Locale.current.languageCode == "ko" ? (DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss a")?.contains("AM") ?? false) ? "오전 h시 mm분" : "오후 h시 mm분" : "H:mm")
             
-            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : Locale.current.languageCode == "zh" ? "yyyy 年 MM 月 d 日" : "dd/MM/yyyy")
+            formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "MMM dd, yyyy" : Locale.current.languageCode == "zh" ? "yyyy 年 MM 月 d 日" : Locale.current.languageCode == "ko" ? "MM월 d일" : "dd/MM/yyyy")
             
             formattedStartTime = "\(formattedStartTime ?? "")-\(formattedEndTime ?? "")"
         }
@@ -86,7 +86,7 @@ class MyTicketsCell: ExtendedCollectionCell {
         set{
             
             let date = newValue
-            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : "H:mm")
+            formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: Locale.current.languageCode == "en" ? "h:mm a" : Locale.current.languageCode == "zh" ? "下午 h 點 mm 分" : Locale.current.languageCode == "th" ? "H.mm" : Locale.current.languageCode == "ko" ? (DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss a")?.contains("AM") ?? false) ? "오전 h시 mm분" : "오후 h시 mm분" : "H:mm")
         }
     }
     

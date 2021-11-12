@@ -59,6 +59,9 @@ class ClaimTicketCell: ExtendedTableCell {
         } else if Locale.current.languageCode == "zh" {
             dateFormate = "yyyy 年 MM 月 d 日"
             timeFortmate = "下午 h 點 mm 分"
+        } else if Locale.current.languageCode == "ko" {
+            dateFormate = "MM월 d일"
+            timeFortmate = "h:mm a"
         }else{
             dateFormate = "dd/MM/yyyy"
             timeFortmate = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
@@ -114,6 +117,15 @@ class ClaimTicketCell: ExtendedTableCell {
         set{
             
             let date = newValue
+            if Locale.current.languageCode == "ko" {
+                if let time = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss a") {
+                    if time.contains("AM") {
+                        timeFortmate = "오전 h시 mm분"
+                    } else {
+                        timeFortmate = "오후 h시 mm분"
+                    }
+                }
+            }
             formattedStartTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: timeFortmate)
             formattedStartDate = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: dateFormate)
         }
@@ -128,6 +140,15 @@ class ClaimTicketCell: ExtendedTableCell {
         set{
             
             let date = newValue
+            if Locale.current.languageCode == "ko" {
+                if let time = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: "h:mm:ss a") {
+                    if time.contains("AM") {
+                        timeFortmate = "오전 h시 mm분"
+                    } else {
+                        timeFortmate = "오후 h시 mm분"
+                    }
+                }
+            }
             formattedEndTime = DateParser.convertDateToDesiredFormat(date: date, ItsDateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZ", requiredDateFormat: timeFortmate)
         }
     }
@@ -258,6 +279,15 @@ class ClaimTicketCell: ExtendedTableCell {
         let calender = Calendar.current
         let newDate = calender.date(byAdding: .minute, value: -30, to: checkInDate)
         
+        if Locale.current.languageCode == "ko" {
+            if let time = DateParser.dateToString(newDate, requiredFormat: timeFortmate ?? "") {
+                if time.contains("AM") {
+                    timeFortmate = "오전 h시 mm분"
+                } else {
+                    timeFortmate = "오후 h시 mm분"
+                }
+            }
+        }
         guard let formatedChkecin = DateParser.dateToString(newDate, requiredFormat: timeFortmate ?? "") else{
             return
         }

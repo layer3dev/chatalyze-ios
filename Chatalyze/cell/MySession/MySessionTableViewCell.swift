@@ -165,7 +165,11 @@ class MySessionTableViewCell: ExtendedTableCell {
             let dateFormatter = DateFormatter()
             if Locale.current.languageCode == "en"{
                 dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
-            }else{
+            } else if Locale.current.languageCode == "zh" {
+                dateFormatter.dateFormat = "yyyy 年 MM 月 d 日"
+            } else if Locale.current.languageCode == "ko" {
+                dateFormatter.dateFormat = "MM월 d일"
+            } else{
                 dateFormatter.dateFormat = "dd/MM/yyyy"
             }
            
@@ -179,7 +183,16 @@ class MySessionTableViewCell: ExtendedTableCell {
             let dateFormatter = DateFormatter()
             if Locale.current.languageCode == "en"{
                 dateFormatter.dateFormat = "h:mm"
-            }else{
+            } else if Locale.current.languageCode == "zh" {
+                dateFormatter.dateFormat = "下午 h 點 mm 分"
+            } else if Locale.current.languageCode == "ko" {
+                dateFormatter.dateFormat = "h:mm:ss a"
+                if dateFormatter.string(from: date).contains("AM") {
+                    dateFormatter.dateFormat = "오전 h시 mm분"
+                } else {
+                    dateFormatter.dateFormat = "오후 h시 mm분"
+                }
+            } else{
                 dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
             }
             
@@ -195,7 +208,16 @@ class MySessionTableViewCell: ExtendedTableCell {
                     dateFormatter.locale = Locale.current
                     dateFormatter.amSymbol = "AM"
                     dateFormatter.pmSymbol = "PM"
-                }else{
+                } else if Locale.current.languageCode == "zh" {
+                    dateFormatter.dateFormat = "下午 h 點 mm 分"
+                } else if Locale.current.languageCode == "ko" {
+                    dateFormatter.dateFormat = "h:mm:ss a"
+                    if dateFormatter.string(from: date).contains("AM") {
+                        dateFormatter.dateFormat = "오전 h시 mm분"
+                    } else {
+                        dateFormatter.dateFormat = "오후 h시 mm분"
+                    }
+                } else{
                     dateFormatter.dateFormat = Locale.current.languageCode == "th" ? "H.mm" : "H:mm"
                 }
                 dateFormatter.timeZone = TimeZone.current
