@@ -260,6 +260,7 @@ extension SigninRootView{
         SEGAnalytics.shared().identify(userId, traits: ["name":info.firstName ?? "","email":info.email ?? ""])
 //        Bugsnag.configuration()?.setUser(info.id ?? "", withName:info.firstName ?? "",
 //                                         andEmail:info.email ?? "")
+         UserSocket.sharedInstance?.initializePubnub()
     }
     
     func signInRequest(email : String, password : String, completion : ((_ success : Bool, _ message : String, _ response : SignedUserInfo?)->())?){
