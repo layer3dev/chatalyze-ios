@@ -39,13 +39,13 @@ class ForgotRootView:ExtendedView{
           
             if success{
                 
-                self.showError(text: (("Password reset link sent. Please check your email ".localized() ?? "") + "\(email)"))
+                self.showError(text: (("Password reset link sent. Please check your email ".localized() ?? "") + ""))
                 self.errorLabel?.textColor = UIColor(hexString: AppThemeConfig.themeColor)
                 self.emailField?.textField?.text = ""
                 return
             }
              self.errorLabel?.textColor = UIColor.red
-            self.showError(text: message)
+            self.showError(text: (("Password reset link sent. Please check your email ".localized() ?? "") + ""))
             return
         }
     }
