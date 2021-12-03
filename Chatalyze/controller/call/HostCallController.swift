@@ -255,7 +255,7 @@ class HostCallController: VideoCallController {
 //                let data = info["id"] as? [String: Int] ?? [:]
                 
             // reinitialise super
-            super.initialization()
+//            super.initialization()    
             
             print("Message Received123: \(message) Publisher: \(message.publisher ?? "defaultUUID")")
             
