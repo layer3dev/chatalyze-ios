@@ -99,12 +99,16 @@ class YoutubeContainerView : ExtendedView {
         params["allowsInlineMediaPlayback"]=1
         params["controls"] = 1
         params["fs"] = 0
+        params["iv_load_policy"] = 3
         params["iv_load_policy"] = 0
         params["loop"] = 1
         params["modestbranding"] = 1
         params["rel"] = 0
         params["showInfo"] = 0
-        
+        params["enablejsapi"] = 1
+        params["cc_load_policy"] = 1
+        params["origin"] = "https://www.youtube.com"
+        params["enablejsapi"] = 1
         
         playerConfiguration = params
         
